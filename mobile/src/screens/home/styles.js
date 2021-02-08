@@ -6,6 +6,6 @@ export default StyleSheet.create({
     },
 
     bottomMenu: {
-        height: 70
+        height: 60
     }
 });

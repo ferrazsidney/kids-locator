@@ -16,12 +16,6 @@ export default StyleSheet.create({
         marginTop: 80,
         fontFamily: 'FivoSans-Thin'
     },
-    
-    image: {
-        width: 110,
-        height: 123,
-        marginVertical: 90,
-    },
 
     botton: {
         color: "#FFFFFF",
@@ -39,5 +33,14 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%'
+    },
+
+    circle: {
+        width: 100,
+        height: 100,
+        borderRadius: 100 / 2,
+        borderWidth: 1.5,
+        borderColor: '#0827C7',
+        margin: '35%'        
     }
 });
