@@ -6,6 +6,10 @@ export default StyleSheet.create({
     },
 
     bottomMenu: {
-        height: 60
+        height: 60,
+        backgroundColor: '#FFFFFF',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%'
     }
 });

@@ -4,21 +4,27 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.gms.location.LocationResult;
+import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.location.LocationResult;
+import org.bson.BasicBSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class MyLocationService extends BroadcastReceiver {
 
     public static final String ACTION_PROCESS_UPDATE = "com.kli.UPDATE_LOCATION";
@@ -34,6 +40,8 @@ public class MyLocationService extends BroadcastReceiver {
 
 
     JSONObject jsonObject = new JSONObject();
+    //Instant instant = Instant.now();
+    //String date = Instant.now().toString();
 
 
     //RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).name("Repository").build();
@@ -75,7 +83,9 @@ public class MyLocationService extends BroadcastReceiver {
                             .toString();
 
                     try {
+                        //char quotes ='"';
                         jsonObject.put("codigo", repository.code);
+                        jsonObject.put("date", Instant.now().toString());
                         jsonObject.put("latitude", location.getLatitude());
                         jsonObject.put("longitude", location.getLongitude());
                     }catch (JSONException e){
@@ -85,7 +95,10 @@ public class MyLocationService extends BroadcastReceiver {
                     try {
                         //Toast.makeText(context, location_string, Toast.LENGTH_SHORT).show();
                         //mSocket.emit("join", location_string);
-                        mSocket.emit("join", jsonObject,toString());
+                        // mSocket.emit("join", jsonObject.toString());
+                        mSocket.emit("joinMaster", repository.code);
+                        mSocket.emit("location", jsonObject.toString());
+                        //mSocket.emit("location", jsonObject);
 
                     }catch (Exception e){
                         Toast.makeText(context, location_string, Toast.LENGTH_SHORT).show();

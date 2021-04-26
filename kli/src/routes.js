@@ -16,7 +16,7 @@ export default function Routes() {
 
     useEffect(() => {
         verifyDb();
-    });
+    }, []);
 
     const verifyDb = async () => {
         const realm = await getRealm();
